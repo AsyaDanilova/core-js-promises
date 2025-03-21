@@ -89,27 +89,27 @@ function getFirstResolvedPromiseResult(promises) {
  * [promise3, promise6, promise2] => Promise rejected with 2
  * [promise3, promise4, promise6] => Promise rejected with 6
  */
-function getFirstPromiseResult(promises) {
-  return new Promise((resolve, reject) => {
-    let isSettled = false;
+// function getFirstPromiseResult(promises) {
+//   return new Promise((resolve, reject) => {
+//     let isSettled = false;
 
-    promises.forEach((promise) => {
-      promise
-        .then((value) => {
-          if (!isSettled) {
-            isSettled = true;
-            resolve(value);
-          }
-        })
-        .catch((error) => {
-          if (!isSettled) {
-            isSettled = true;
-            reject(error);
-          }
-        });
-    });
-  });
-}
+//     promises.forEach((promise) => {
+//       promise
+//         .then((value) => {
+//           if (!isSettled) {
+//             isSettled = true;
+//             resolve(value);
+//           }
+//         })
+//         .catch((error) => {
+//           if (!isSettled) {
+//             isSettled = true;
+//             reject(error);
+//           }
+//         });
+//     });
+//   });
+// }
 
 /**
  * Attempts to resolve all provided promises. If all promises resolve successfully, it returns a promise that resolves with an array of their values.
