@@ -57,17 +57,7 @@ function getPromiseResult(source) {
  * [Promise.reject(1), Promise.reject(2), Promise.reject(3)]    => Promise rejected
  */
 function getFirstResolvedPromiseResult(promises) {
-  const wrappedPromises = promises.map((promise) =>
-    promise
-      .then((value) => ({ status: 'fulfilled', value }))
-      .catch(() => ({ status: 'rejected' }))
-  );
-  return Promise.race(wrappedPromises).then((result) => {
-    if (result.status === 'fulfilled') {
-      return result.value;
-    }
-    return Promise.reject(new Error('Promise rejected'));
-  });
+  return Promise.any(promises);
 }
 
 /**
@@ -89,27 +79,9 @@ function getFirstResolvedPromiseResult(promises) {
  * [promise3, promise6, promise2] => Promise rejected with 2
  * [promise3, promise4, promise6] => Promise rejected with 6
  */
-// function getFirstPromiseResult(promises) {
-//   return new Promise((resolve, reject) => {
-//     let isSettled = false;
-
-//     promises.forEach((promise) => {
-//       promise
-//         .then((value) => {
-//           if (!isSettled) {
-//             isSettled = true;
-//             resolve(value);
-//           }
-//         })
-//         .catch((error) => {
-//           if (!isSettled) {
-//             isSettled = true;
-//             reject(error);
-//           }
-//         });
-//     });
-//   });
-// }
+function getFirstPromiseResult(promises) {
+  return Promise.race(promises);
+}
 
 /**
  * Attempts to resolve all provided promises. If all promises resolve successfully, it returns a promise that resolves with an array of their values.
