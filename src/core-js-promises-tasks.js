@@ -44,20 +44,19 @@ function getPromiseResult(source) {
 }
 
 /**
- * Takes an array of promises and returns a promise that resolves with the value of the first successfully resolved promise From the given array.
- * If all promises in the array are rejected, it returns a promise that is rejected.
+ * Returns a promise that will always fulfilled and return a value of success or fail.
+ * It returns a promise that is always fulfilled with a string value: 'success' if the original promise was fulfilled,
+ * and 'fail' if the original promise was rejected
  *
- * @param {Array<Promise<number>>} promises
- * @return {Promise<number>}
+ * @param {Promise} source
+ * @return {Promise<string>}
  *
  * @example:
- * [Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)] => Promise fulfilled with 1
- * [Promise.reject(1), Promise.resolve(2), Promise.resolve(3)]  => Promise fulfilled with 2
- * [Promise.resolve(1), Promise.reject(2), Promise.resolve(3)]  => Promise fulfilled with 1
- * [Promise.reject(1), Promise.reject(2), Promise.reject(3)]    => Promise rejected
+ * Promise.resolve('success') => promise that will be fulfilled with 'success' value
+ * Promise.reject('fail')     => promise that will be fulfilled with 'fail' value
  */
-function getFirstResolvedPromiseResult(/* promises */) {
-  throw new Error('Not implemented');
+function getFirstResolvedPromiseResult(promises) {
+  return Promise.any(promises);
 }
 
 /**
